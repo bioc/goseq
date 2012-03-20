@@ -27,7 +27,7 @@ Gordon K.\ Smyth
 Alicia Oshlack}
 % Please increment date when working on this document, so that
 % date shows genuine change date, not merely date of compile.
-\date{30 March 2011}
+\date{17 March 2012}
 \maketitle
 
 \section{Introduction}
@@ -117,6 +117,8 @@ txsByGene=transcriptsBy(txdb,"gene")
 lengthData=median(width(txsByGene))
 @
 
+The relationship between gene identifier and GO category can usually be obtained from the Gene Ontology website (www.geneontology.org) or from the NCBI.  Additionally, the bioconductor AnnotationDbi library has recently added a function "makeOrgPackageFromNCBI", which can be used to create an organism package from within R, using the NCBI data.  Once created, this package can then be used to obtain the mapping between genes and gene ontology.
+
 \section{Case study: Prostate cancer data}
 \subsection{Introduction}
 
@@ -157,7 +159,7 @@ topTags(tested)
 Finally, we Format the DE genes into a vector suitable for use with \texttt{goseq}
 
 <<edger_3>>=
-genes=as.integer(p.adjust(tested$table$p.value[tested$table$logFC!=0],method="BH")<.05)
+genes=as.integer(p.adjust(tested$table$PValue[tested$table$logFC!=0],method="BH")<.05)
 names(genes)=row.names(tested$table[tested$table$logFC!=0,])
 table(genes)
 @
